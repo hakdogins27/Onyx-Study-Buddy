@@ -10,3 +10,7 @@ serviceAccountKey.json
 # Python
 __pycache__/
 *.pyc
+
+# Unnecessary large files/folders for deployment
+Python-3.11.13.tgz
+Python-3.11.13/
