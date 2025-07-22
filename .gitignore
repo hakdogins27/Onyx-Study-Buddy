@@ -1,0 +1,12 @@
+# .gitignore
+
+# Environment
+.env
+venv/
+
+# Service Account Key
+serviceAccountKey.json
+
+# Python
+__pycache__/
+*.pyc
