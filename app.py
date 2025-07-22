@@ -24,11 +24,14 @@ if os.getenv('VERCEL_ENV') == 'production':
     # In Vercel, read the JSON content directly from the environment variable
     print("Vercel environment detected. Initializing Firebase from environment variable.")
     service_account_json_str = os.getenv('FIREBASE_SERVICE_ACCOUNT_KEY')
+    
+    # --- THIS IS THE NEW DEBUG LINE ---
+    print(f"RAW ENV VAR VALUE RECEIVED: '{service_account_json_str}'")
+    
     if not service_account_json_str:
-        print("FATAL ERROR: FIREBASE_SERVICE_ACCOUNT_KEY environment variable not found in Vercel.")
+        print("FATAL ERROR: FIREBASE_SERVICE_ACCOUNT_KEY environment variable was empty.")
     else:
         try:
-            # Convert the JSON string from the environment variable into a Python dictionary
             service_account_info = json.loads(service_account_json_str)
             cred = credentials.Certificate(service_account_info)
             if not firebase_admin._apps:
@@ -39,7 +42,6 @@ if os.getenv('VERCEL_ENV') == 'production':
 else:
     # Locally, read the JSON from the file path defined in your .env
     print("Local environment detected. Initializing Firebase from file path.")
-    # In your .env file, make sure you have: FIREBASE_SERVICE_ACCOUNT_KEY_PATH="serviceAccountKey.json"
     SERVICE_ACCOUNT_KEY_PATH = os.getenv("FIREBASE_SERVICE_ACCOUNT_KEY_PATH") 
     if not SERVICE_ACCOUNT_KEY_PATH or not os.path.exists(SERVICE_ACCOUNT_KEY_PATH):
         print(f"FATAL ERROR: Service account key file not found at path: '{SERVICE_ACCOUNT_KEY_PATH}'")
